@@ -1,5 +1,244 @@
 # Архитектура
 
+## Полная файловая структура
+```bash
+├── README.md
+├── backend
+│   ├── Dockerfile
+│   ├── README.md
+│   ├── alembic
+│   │   ├── env.py
+│   │   ├── script.py.mako
+│   │   └── versions
+│   ├── alembic.ini
+│   ├── data
+│   │   ├── arpabet_to_ipa.json
+│   │   ├── exercises_seed.json
+│   │   ├── hillenbrand_vowels.csv
+│   │   └── piper_voices
+│   ├── pyproject.toml
+│   ├── src
+│   │   ├── __init__.py
+│   │   └── accent_trainer
+│   │       ├── __init__.py
+│   │       ├── api
+│   │       │   ├── __init__.py
+│   │       │   ├── deps.py
+│   │       │   ├── errors.py
+│   │       │   └── v1
+│   │       │       ├── __init__.py
+│   │       │       ├── attempts.py
+│   │       │       ├── auth.py
+│   │       │       ├── courses.py
+│   │       │       ├── exercises.py
+│   │       │       ├── modules.py
+│   │       │       ├── progress.py
+│   │       │       ├── reference.py
+│   │       │       ├── router.py
+│   │       │       ├── schemas
+│   │       │       │   ├── __init__.py
+│   │       │       │   ├── analysis.py
+│   │       │       │   ├── attempt.py
+│   │       │       │   ├── auth.py
+│   │       │       │   ├── exercise.py
+│   │       │       │   ├── progress.py
+│   │       │       │   └── user.py
+│   │       │       └── users.py
+│   │       ├── application
+│   │       │   ├── __init__.py
+│   │       │   ├── dto
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── analysis_dto.py
+│   │       │   │   ├── exercise_dto.py
+│   │       │   │   └── progress_dto.py
+│   │       │   ├── interfaces
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── asr_service.py
+│   │       │   │   ├── audio_analyzer.py
+│   │       │   │   ├── object_storage.py
+│   │       │   │   ├── repositories.py
+│   │       │   │   └── tts_service.py
+│   │       │   └── use_cases
+│   │       │       ├── __init__.py
+│   │       │       ├── analyze_pronunciation.py
+│   │       │       ├── final_check.py
+│   │       │       ├── get_progress.py
+│   │       │       ├── get_reference_audio.py
+│   │       │       ├── start_session.py
+│   │       │       └── submit_attempt.py
+│   │       ├── config.py
+│   │       ├── core
+│   │       │   ├── __init__.py
+│   │       │   ├── exceptions.py
+│   │       │   ├── logging.py
+│   │       │   └── security.py
+│   │       ├── domain
+│   │       │   ├── __init__.py
+│   │       │   ├── entities
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── attempt.py
+│   │       │   │   ├── course.py
+│   │       │   │   ├── exercise.py
+│   │       │   │   ├── module.py
+│   │       │   │   ├── phoneme_report.py
+│   │       │   │   ├── progress.py
+│   │       │   │   ├── task.py
+│   │       │   │   └── user.py
+│   │       │   └── value_objects
+│   │       │       ├── __init__.py
+│   │       │       ├── formants.py
+│   │       │       ├── mfcc.py
+│   │       │       ├── phoneme.py
+│   │       │       └── tongue_position.py
+│   │       ├── infrastructure
+│   │       │   ├── __init__.py
+│   │       │   ├── asr
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── aligner.py
+│   │       │   │   ├── g2p.py
+│   │       │   │   └── whisper_service.py
+│   │       │   ├── audio
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── advice_generator.py
+│   │       │   │   ├── formant_extractor.py
+│   │       │   │   ├── mfcc_extractor.py
+│   │       │   │   ├── reference_db.py
+│   │       │   │   └── spectrogram.py
+│   │       │   ├── db
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── base.py
+│   │       │   │   ├── models
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   ├── attempt.py
+│   │       │   │   │   ├── course.py
+│   │       │   │   │   ├── exercise.py
+│   │       │   │   │   ├── module.py
+│   │       │   │   │   ├── progress.py
+│   │       │   │   │   ├── task.py
+│   │       │   │   │   └── user.py
+│   │       │   │   ├── repositories
+│   │       │   │   │   ├── __init__.py
+│   │       │   │   │   ├── attempt_repo.py
+│   │       │   │   │   ├── exercise_repo.py
+│   │       │   │   │   ├── progress_repo.py
+│   │       │   │   │   └── user_repo.py
+│   │       │   │   └── session.py
+│   │       │   ├── storage
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── file_storage.py
+│   │       │   │   └── minio_client.py
+│   │       │   ├── tasks
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── jobs.py
+│   │       │   │   └── worker.py
+│   │       │   └── tts
+│   │       │       ├── __init__.py
+│   │       │       ├── piper_service.py
+│   │       │       └── reference_cache.py
+│   │       └── main.py
+│   └── tests
+│       ├── __init__.py
+│       ├── conftest.py
+│       ├── integration
+│       │   └── __init__.py
+│       └── unit
+│           └── __init__.py
+├── docker-compose.dev.yml
+├── docker-compose.yml
+├── docs
+│   ├── api.md
+│   ├── architecture.md
+│   ├── phoneme_pipeline.md
+│   └── setup.md
+└── frontend
+    ├── Dockerfile
+    ├── README.md
+    ├── index.html
+    ├── package.json
+    ├── postcss.config.js
+    ├── public
+    ├── src
+    │   ├── App.tsx
+    │   ├── api
+    │   │   ├── client.ts
+    │   │   └── endpoints
+    │   │       ├── attempts.ts
+    │   │       ├── auth.ts
+    │   │       ├── exercises.ts
+    │   │       ├── progress.ts
+    │   │       └── reference.ts
+    │   ├── assets
+    │   ├── features
+    │   │   ├── auth
+    │   │   │   ├── components
+    │   │   │   ├── hooks
+    │   │   │   │   └── useAuth.ts
+    │   │   │   └── pages
+    │   │   │       ├── LoginPage.tsx
+    │   │   │       └── RegisterPage.tsx
+    │   │   ├── course
+    │   │   │   ├── components
+    │   │   │   ├── hooks
+    │   │   │   └── pages
+    │   │   │       ├── CourseDetailPage.tsx
+    │   │   │       └── CoursesListPage.tsx
+    │   │   ├── exercise
+    │   │   │   ├── components
+    │   │   │   │   ├── AdviceList.tsx
+    │   │   │   │   ├── FormantChart.tsx
+    │   │   │   │   ├── MfccHeatmap.tsx
+    │   │   │   │   ├── Recorder.tsx
+    │   │   │   │   ├── ReferencePlayer.tsx
+    │   │   │   │   ├── SpectrogramView.tsx
+    │   │   │   │   └── TongueDiagram.tsx
+    │   │   │   ├── hooks
+    │   │   │   │   ├── useAnalysis.ts
+    │   │   │   │   └── useRecorder.ts
+    │   │   │   └── pages
+    │   │   │       └── ExercisePage.tsx
+    │   │   ├── final-test
+    │   │   │   ├── components
+    │   │   │   ├── hooks
+    │   │   │   └── pages
+    │   │   │       └── FinalTestPage.tsx
+    │   │   ├── module
+    │   │   │   ├── components
+    │   │   │   │   └── ModuleProgress.tsx
+    │   │   │   ├── hooks
+    │   │   │   └── pages
+    │   │   │       └── ModuleDetailPage.tsx
+    │   │   └── progress
+    │   │       ├── components
+    │   │       │   └── ProgressBar.tsx
+    │   │       ├── hooks
+    │   │       └── pages
+    │   │           └── DashboardPage.tsx
+    │   ├── main.tsx
+    │   ├── routes
+    │   │   ├── ProtectedRoute.tsx
+    │   │   └── index.tsx
+    │   ├── shared
+    │   │   ├── config
+    │   │   │   └── env.ts
+    │   │   ├── hooks
+    │   │   ├── lib
+    │   │   ├── types
+    │   │   │   └── api.ts
+    │   │   └── ui
+    │   ├── store
+    │   │   ├── authStore.ts
+    │   │   └── sessionStore.ts
+    │   ├── styles
+    │   │   ├── globals.css
+    │   │   └── tailwind.css
+    │   └── vite-env.d.ts
+    ├── tailwind.config.js
+    ├── tsconfig.json
+    ├── tsconfig.node.json
+    └── vite.config.ts
+```
+
+
 ## Принципы
 
 Проект придерживается Clean Architecture (Robert C. Martin) с

@@ -60,8 +60,8 @@ accent-trainer/
 ├── docs/           # Архитектура, пайплайн анализа, setup
 ├── docker-compose.yml
 └── README.md
-Подробнее: [`docs/architecture.md`](docs/architecture.md)
 ```
+Подробнее: [`docs/architecture.md`](docs/architecture.md)
 
 
 ---
