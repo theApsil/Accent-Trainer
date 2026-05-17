@@ -80,10 +80,10 @@ docker compose up -d postgres redis minio
 
 | Этап | Ветка | Статус |
 |---|---|---|
-| 1. Скелет репозитория | feature/project-skeleton | 🟡 в работе |
-| 2. Docker Compose инфра | feature/infra-compose | ⏳ |
-| 3. Backend core (FastAPI) | feature/backend-core | ⏳ |
-| 4. БД и миграции | feature/db-models | ⏳ |
+| 1. Скелет репозитория | feature/project-skeleton | 🟢 сделано |
+| 2. Docker Compose инфра | feature/infra-compose | 🟢 сделано |
+| 3. Backend core (FastAPI) | feature/backend-core | 🟢 сделано |
+| 4. БД и миграции | feature/db-models | 🟡 в работе  |
 | 5. Аутентификация | feature/auth | ⏳ |
 | 6. Аудио-пайплайн (MFCC, форманты) | feature/audio-pipeline | ⏳ |
 | 7. ASR (Whisper) | feature/asr-whisper | ⏳ |
