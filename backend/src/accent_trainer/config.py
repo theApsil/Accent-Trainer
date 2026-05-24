@@ -1,8 +1,17 @@
 from functools import lru_cache
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import Field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import BeforeValidator, Field
+from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
+
+
+def _split_csv(value: str | list[str]) -> list[str]:
+    if isinstance(value, str):
+        return [origin.strip() for origin in value.split(",") if origin.strip()]
+    return value
+
+
+CsvList = Annotated[list[str], NoDecode, BeforeValidator(_split_csv)]
 
 
 class AppSettings(BaseSettings):
@@ -24,14 +33,7 @@ class ApiSettings(BaseSettings):
     """API-related settings."""
 
     v1_prefix: str = Field(default="/api/v1", alias="API_V1_PREFIX")
-    cors_origins: list[str] = Field(default_factory=list, alias="CORS_ORIGINS")
-
-    @field_validator("cors_origins", mode="before")
-    @classmethod
-    def _split_csv(cls, value: str | list[str]) -> list[str]:
-        if isinstance(value, str):
-            return [origin.strip() for origin in value.split(",") if origin.strip()]
-        return value
+    cors_origins: CsvList = Field(default_factory=list, alias="CORS_ORIGINS")
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
