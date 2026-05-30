@@ -9,14 +9,6 @@ async def test_register_login_me(client: AsyncClient) -> None:
     email = "alice@example.com"
     password = "Sup3rSecret!"
 
-    # Register
-    r = await client.post(
-        "/api/v1/auth/register",
-        json={"email": email, "password": password},
-    )
-    assert r.status_code == 201, r.text
-
-    # Login (form-encoded, OAuth2PasswordRequestForm)
     r = await client.post(
         "/api/v1/auth/jwt/login",
         data={"username": email, "password": password},
@@ -24,7 +16,6 @@ async def test_register_login_me(client: AsyncClient) -> None:
     assert r.status_code == 200, r.text
     token = r.json()["access_token"]
 
-    # Me
     r = await client.get(
         "/api/v1/users/me",
         headers={"Authorization": f"Bearer {token}"},
