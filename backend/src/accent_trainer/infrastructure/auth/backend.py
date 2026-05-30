@@ -10,7 +10,6 @@ from accent_trainer.config import get_settings
 
 
 def _token_url() -> str:
-    # Absolute path relative to the API root, so Swagger UI resolves it correctly.
     return f"{get_settings().api.v1_prefix}/auth/jwt/login"
 
 
