@@ -75,12 +75,20 @@ class MinioSettings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+class AuthSettings(BaseSettings):
+    """Authentication settings."""
+
+    secret: str = Field(alias="AUTH_SECRET")
+    jwt_lifetime_seconds: int = Field(default=3600, alias="AUTH_JWT_LIFETIME_SECONDS")
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 class Settings(BaseSettings):
     """Aggregate settings root."""
 
     app: AppSettings = Field(default_factory=AppSettings)
     api: ApiSettings = Field(default_factory=ApiSettings)
+    auth: AuthSettings = Field(default_factory=AuthSettings)  # ← новое
     postgres: PostgresSettings = Field(default_factory=PostgresSettings)
     redis: RedisSettings = Field(default_factory=RedisSettings)
     minio: MinioSettings = Field(default_factory=MinioSettings)
