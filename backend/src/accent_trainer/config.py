@@ -83,6 +83,20 @@ class AuthSettings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
+
+class TTSSettings(BaseSettings):
+    """Piper TTS settings."""
+
+    piper_binary: str = Field(default="piper", alias="TTS_PIPER_BINARY")
+    voices_dir: str = Field(default="data/piper_voices", alias="TTS_VOICES_DIR")
+    default_voice: str = Field(
+        default="en_US-lessac-medium", alias="TTS_DEFAULT_VOICE"
+    )
+    sample_rate: int = Field(default=22050, alias="TTS_SAMPLE_RATE")
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+
 class Settings(BaseSettings):
     """Aggregate settings root."""
 
@@ -92,6 +106,7 @@ class Settings(BaseSettings):
     postgres: PostgresSettings = Field(default_factory=PostgresSettings)
     redis: RedisSettings = Field(default_factory=RedisSettings)
     minio: MinioSettings = Field(default_factory=MinioSettings)
+    tts: TTSSettings = Field(default_factory=TTSSettings)
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
