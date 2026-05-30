@@ -1,3 +1,5 @@
 .env
 __pycache__/
 .idea/
+backend/data/piper_voices/*.onnx
+backend/data/piper_voices/*.onnx.json
