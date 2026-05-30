@@ -83,7 +83,6 @@ async def test_presign_404_for_missing_key(client: httpx.AsyncClient) -> None:
     token = await _register_and_login(client)
     headers = {"Authorization": f"Bearer {token}"}
 
-    # Узнаём свой id
     me = await client.get("/api/v1/users/me", headers=headers)
     uid = me.json()["id"]
     missing_key = f"users/{uid}/2025/01/01/{uuid.uuid4()}.wav"
