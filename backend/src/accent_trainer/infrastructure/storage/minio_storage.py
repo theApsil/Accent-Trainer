@@ -96,8 +96,12 @@ class MinIOStorage(ObjectStorage):
                 self._client.stat_object(bucket, key)
                 return True
             except S3Error as exc:
-                if exc.code == "NoSuchKey":
+                if exc.code in {"NoSuchKey", "NoSuchObject", "NoSuchBucket"}:
                     return False
+                if getattr(exc, "response", None) is not None:
+                    status_code = getattr(exc.response, "status", None)
+                    if status_code == 404:
+                        return False
                 raise
 
         return await asyncio.to_thread(_stat)

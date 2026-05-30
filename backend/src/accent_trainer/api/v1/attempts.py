@@ -34,21 +34,14 @@ async def upload_recording(
     settings: Settings = Depends(get_settings),
 ) -> RecordingUploadedResponse:
     use_case = UploadUserRecording(storage=storage, settings=settings)
-
-    # Read the whole file to know the size; for production-grade streaming
-    # we'd compute size via Content-Length / chunked stream — но пока упрощаем.
     content = await file.read()
-    try:
-        result = await use_case.execute(
-            user_id=user.id,
-            data=content,
-            content_type=file.content_type or "application/octet-stream",
-            size=len(content),
-            filename=file.filename,
-        )
-    except ValidationError as exc:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
-
+    result = await use_case.execute(
+        user_id=user.id,
+        data=content,
+        content_type=file.content_type or "application/octet-stream",
+        size=len(content),
+        filename=file.filename,
+    )
     return RecordingUploadedResponse(
         bucket=result.bucket,
         key=result.key,

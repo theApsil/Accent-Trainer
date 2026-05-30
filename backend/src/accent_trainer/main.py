@@ -10,7 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from accent_trainer.api.errors import register_exception_handlers
 from accent_trainer.api.v1.router import router as v1_router
 from accent_trainer.config import get_settings
-from accent_trainer.core.logging import setup_logging
+from accent_trainer.core.logging import configure_logging
 from accent_trainer.infrastructure.storage.minio_client import ensure_buckets
 
 logger = logging.getLogger(__name__)
@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    setup_logging()
+    settings = get_settings()
+    configure_logging(level="DEBUG" if settings.app.debug else "INFO")
     logger.info("Starting up...")
     try:
         ensure_buckets()
