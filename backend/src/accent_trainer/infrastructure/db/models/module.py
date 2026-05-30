@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 from uuid import UUID
 
 from sqlalchemy import ForeignKey, Integer, String, Text
@@ -8,6 +9,10 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.types import Float
 
 from accent_trainer.infrastructure.db.base import Base, TimestampMixin, UUIDMixin
+
+if TYPE_CHECKING:
+    from accent_trainer.infrastructure.db.models.course import CourseModel
+    from accent_trainer.infrastructure.db.models.exercise import ExerciseModel
 
 
 class ModuleModel(Base, UUIDMixin, TimestampMixin):
@@ -29,8 +34,8 @@ class ModuleModel(Base, UUIDMixin, TimestampMixin):
     passing_threshold: Mapped[float] = mapped_column(Float, default=0.8, nullable=False)
     final_check_sentence: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    course: Mapped["CourseModel"] = relationship(back_populates="modules")  # noqa: F821
-    exercises: Mapped[list["ExerciseModel"]] = relationship(  # noqa: F821
+    course: Mapped["CourseModel"] = relationship(back_populates="modules")
+    exercises: Mapped[list["ExerciseModel"]] = relationship(
         back_populates="module",
         cascade="all, delete-orphan",
         lazy="selectin",

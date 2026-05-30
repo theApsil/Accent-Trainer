@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 from uuid import UUID
 
 from sqlalchemy import ForeignKey, Integer, String, Text
@@ -7,6 +8,10 @@ from sqlalchemy.dialects.postgresql import UUID as PgUUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from accent_trainer.infrastructure.db.base import Base, TimestampMixin, UUIDMixin
+
+if TYPE_CHECKING:
+    from accent_trainer.infrastructure.db.models.module import ModuleModel
+    from accent_trainer.infrastructure.db.models.task import TaskModel
 
 
 class ExerciseModel(Base, UUIDMixin, TimestampMixin):
@@ -23,8 +28,8 @@ class ExerciseModel(Base, UUIDMixin, TimestampMixin):
     description: Mapped[str] = mapped_column(Text, default="", nullable=False)
     order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
-    module: Mapped["ModuleModel"] = relationship(back_populates="exercises")  # noqa: F821
-    tasks: Mapped[list["TaskModel"]] = relationship(  # noqa: F821
+    module: Mapped["ModuleModel"] = relationship(back_populates="exercises")
+    tasks: Mapped[list["TaskModel"]] = relationship(
         back_populates="exercise",
         cascade="all, delete-orphan",
         lazy="selectin",
