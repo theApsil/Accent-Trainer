@@ -14,9 +14,9 @@ class ExerciseKind(StrEnum):
 
 @dataclass(slots=True)
 class Exercise:
-    id : UUID
+    id: UUID
     module: UUID
-    kind : ExerciseKind
+    kind: ExerciseKind
     title: str
     description: str
     order: int

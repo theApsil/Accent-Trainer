@@ -29,6 +29,4 @@ class ProgressModel(Base, UUIDMixin, TimestampMixin):
     completed_tasks: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     total_tasks: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     final_check_passed: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    last_attempt_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=True
-    )
+    last_attempt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

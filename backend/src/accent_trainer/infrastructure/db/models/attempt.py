@@ -60,8 +60,6 @@ class PhonemeReportModel(Base, UUIDMixin):
     f2_ref_hz: Mapped[float | None] = mapped_column(Float, nullable=True)
     tongue_height: Mapped[float | None] = mapped_column(Float, nullable=True)
     tongue_frontness: Mapped[float | None] = mapped_column(Float, nullable=True)
-    advice_codes: Mapped[list[str]] = mapped_column(
-        ARRAY(String(64)), default=list, nullable=False
-    )
+    advice_codes: Mapped[list[str]] = mapped_column(ARRAY(String(64)), default=list, nullable=False)
 
     attempt: Mapped["AttemptModel"] = relationship(back_populates="phoneme_reports")

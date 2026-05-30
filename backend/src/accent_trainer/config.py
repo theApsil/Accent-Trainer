@@ -47,10 +47,7 @@ class PostgresSettings(BaseSettings):
 
     @property
     def dsn(self) -> str:
-        return (
-            f"postgresql+asyncpg://{self.user}:{self.password}"
-            f"@{self.host}:{self.port}/{self.db}"
-        )
+        return f"postgresql+asyncpg://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}"
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
