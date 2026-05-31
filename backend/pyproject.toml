@@ -12,6 +12,7 @@ dependencies = [
     "faster-whisper>=1.0.3",
     "g2p-en>=2.1.0",
     "httpx>=0.28.1",
+    "librosa>=0.10.2",
     "minio>=7.2.0",
     "numpy>=1.26",
     "pwdlib[argon2]>=0.2.1",
@@ -19,6 +20,8 @@ dependencies = [
     "pydantic-settings>=2.14.1",
     "pytest>=9.0.3",
     "python-dotenv>=1.2.2",
+    "scipy>=1.13",
+    "soundfile>=0.12.1",
     "sqlalchemy[asyncio]>=2.0.36",
     "uvicorn[standart]>=0.47.0",
 ]
