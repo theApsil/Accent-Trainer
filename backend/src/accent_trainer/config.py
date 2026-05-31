@@ -97,6 +97,18 @@ class TTSSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
+class ASRSettings(BaseSettings):
+    """ASR / forced alignment settings."""
+
+    whisper_model: str = Field(default="base", alias="ASR_WHISPER_MODEL")
+    whisper_device: str = Field(default="cpu", alias="ASR_WHISPER_DEVICE")
+    whisper_compute_type: str = Field(default="int8", alias="ASR_WHISPER_COMPUTE_TYPE")
+    language: str = Field(default="en", alias="ASR_LANGUAGE")
+    models_dir: str = Field(default="data/asr_models", alias="ASR_MODELS_DIR")
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+
 class Settings(BaseSettings):
     """Aggregate settings root."""
 
@@ -107,6 +119,7 @@ class Settings(BaseSettings):
     redis: RedisSettings = Field(default_factory=RedisSettings)
     minio: MinioSettings = Field(default_factory=MinioSettings)
     tts: TTSSettings = Field(default_factory=TTSSettings)
+    asr: ASRSettings = Field(default_factory=ASRSettings)
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
