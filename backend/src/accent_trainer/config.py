@@ -109,6 +109,18 @@ class ASRSettings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
+class AudioSettings(BaseSettings):
+    """Audio processing settings."""
+
+    target_sample_rate: int = Field(default=16000, alias="AUDIO_TARGET_SR")
+    formant_lpc_order: int = Field(default=12, alias="AUDIO_LPC_ORDER")
+    formant_min_hz: int = Field(default=90, alias="AUDIO_FORMANT_MIN_HZ")
+    formant_max_hz: int = Field(default=5500, alias="AUDIO_FORMANT_MAX_HZ")
+    ffmpeg_binary: str = Field(default="ffmpeg", alias="AUDIO_FFMPEG_BINARY")
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+
 class Settings(BaseSettings):
     """Aggregate settings root."""
 
@@ -120,6 +132,7 @@ class Settings(BaseSettings):
     minio: MinioSettings = Field(default_factory=MinioSettings)
     tts: TTSSettings = Field(default_factory=TTSSettings)
     asr: ASRSettings = Field(default_factory=ASRSettings)
+    audio: AudioSettings = Field(default_factory=AudioSettings)
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

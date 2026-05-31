@@ -16,6 +16,13 @@ from accent_trainer.config import Settings, get_settings
 from accent_trainer.infrastructure.asr.faster_whisper_asr import FasterWhisperASR
 from accent_trainer.infrastructure.asr.g2p_en_service import G2PEnService
 from accent_trainer.infrastructure.asr.proxy_aligner import ProxyAligner
+from accent_trainer.application.interfaces.formant_extractor import (
+    FormantExtractor,
+)
+from accent_trainer.infrastructure.audio.converter import AudioConverter
+from accent_trainer.infrastructure.audio.formant_extractor import (
+    LPCFormantExtractor,
+)
 
 
 @lru_cache(maxsize=1)
@@ -61,3 +68,21 @@ def _aligner_singleton() -> Aligner:
 
 def get_aligner() -> Aligner:
     return _aligner_singleton()
+
+
+@lru_cache(maxsize=1)
+def _formant_singleton() -> FormantExtractor:
+    return LPCFormantExtractor(settings=get_settings())
+
+
+def get_formant_extractor() -> FormantExtractor:
+    return _formant_singleton()
+
+
+@lru_cache(maxsize=1)
+def _converter_singleton() -> AudioConverter:
+    return AudioConverter(settings=get_settings())
+
+
+def get_audio_converter() -> AudioConverter:
+    return _converter_singleton()
