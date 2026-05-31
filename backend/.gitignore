@@ -4,3 +4,4 @@ __pycache__/
 .env
 backend/data/piper_voices/*.onnx
 backend/data/piper_voices/*.onnx.json
+backend/data/asr_models/
