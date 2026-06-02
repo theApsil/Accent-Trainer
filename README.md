@@ -83,20 +83,19 @@ docker compose up -d postgres redis minio
 | 1. Скелет репозитория | feature/project-skeleton | 🟢 сделано |
 | 2. Docker Compose инфра | feature/infra-compose | 🟢 сделано |
 | 3. Backend core (FastAPI) | feature/backend-core | 🟢 сделано |
-| 4. БД и миграции | feature/db-models | 🟡 в работе  |
-| 5. Аутентификация | feature/auth | ⏳ |
-| 6. Аудио-пайплайн (MFCC, форманты) | feature/audio-pipeline | ⏳ |
-| 7. ASR (Whisper) | feature/asr-whisper | ⏳ |
-| 8. TTS эталонов (Piper + MinIO) | feature/tts-reference | ⏳ |
-| 9. Use-case анализа | feature/analyze-usecase | ⏳ |
-| 10. API упражнений и прогресса | feature/exercises-api | ⏳ |
+| 4. БД и миграции | feature/db-models | 🟢 сделано  |
+| 5. Аутентификация | feature/auth | 🟢 сделано |
+| 6. Аудио-пайплайн (MFCC, форманты) | feature/audio-pipeline | 🟢 сделано |
+| 7. ASR (Whisper) | feature/asr-whisper | 🟢 сделано |
+| 8. TTS эталонов (Piper + MinIO) | feature/tts-reference | 🟢 сделано |
+| 9. Use-case анализа | feature/analyze-usecase | 🟢 сделано |
+| 10. API упражнений и прогресса | feature/exercises-api | 🟢 сделано |
 | 11. Финальная проверка | feature/final-check | ⏳ |
 | 12. Frontend скелет | feature/frontend-skeleton | ⏳ |
 | 13. Frontend auth | feature/frontend-auth | ⏳ |
 | 14. Recorder + загрузка | feature/frontend-recorder | ⏳ |
 | 15. Визуализации | feature/frontend-visualization | ⏳ |
 | 16. Прогресс / дашборд | feature/frontend-progress | ⏳ |
-| 17. CI | chore/ci | ⏳ |
 
 ---
 
