@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.venv
+.env
+backend/data/piper_voices/*.onnx
+backend/data/piper_voices/*.onnx.json
+backend/data/asr_models/
